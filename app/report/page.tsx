@@ -241,23 +241,6 @@ function ReportContent() {
         </button>
       </div>
 
-      <header className="px-6 md:px-10 py-6 flex justify-between items-center bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm print:hidden">
-        <Link href="/" className="font-extrabold text-xl tracking-tight text-[#4a5c53] flex items-center gap-2">
-          <BrainCircuit size={24} />
-          MoodB
-        </Link>
-        <nav className="hidden md:flex gap-10 font-bold text-[11px] text-gray-500 uppercase tracking-widest">
-          <Link href="/" className="hover:text-black transition-colors">{t.navHome}</Link>
-        </nav>
-        <div className="flex items-center gap-4">
-          <button onClick={() => window.print()} className="hidden md:flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#566e63] transition-colors">
-            <Download size={16} /> {t.btnPdf}
-          </button>
-          <button onClick={() => router.back()} className="text-sm font-bold bg-gray-100 px-4 py-2 rounded-full hover:bg-gray-200 flex items-center gap-1 transition-colors">
-            <ChevronLeft size={16} /> {t.btnBack}
-          </button>
-        </div>
-      </header>
 
       <main className="max-w-[900px] mx-auto px-4 sm:px-6 py-12 md:py-20">
         <div className="bg-white rounded-none sm:rounded-[40px] p-6 sm:p-12 md:p-16 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-gray-100/50 print:shadow-none print:border-none print:p-0">
@@ -386,8 +369,14 @@ function ReportContent() {
             </div>
           </section>
 
-          <div className="mt-20 pt-10 border-t border-gray-200 text-center text-xs text-gray-400 font-bold uppercase tracking-widest">
-            {t.footerText}
+          <div className="mt-20 pt-10 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-6 print:hidden">
+            <button
+              onClick={() => window.print()}
+              className="flex items-center gap-2 bg-[#566e63] text-white px-8 py-3.5 rounded-full font-bold shadow-lg hover:bg-[#43574d] transition-all"
+            >
+              <Download size={18} /> {t.btnPdf}
+            </button>
+            <span className="text-xs text-gray-400 font-bold uppercase tracking-widest text-center">{t.footerText}</span>
           </div>
         </div>
       </main>

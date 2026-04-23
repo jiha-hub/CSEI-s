@@ -377,9 +377,9 @@ function ResultContent() {
             {radarData.map((score, idx) => (
               <div 
                 key={idx} 
-                className={`flex flex-col items-center justify-center p-3 rounded-2xl border ${GROUP_COLOR[score.group]} transition-all`}
+                className={`flex flex-col items-center justify-center p-2 md:p-3 rounded-2xl border ${GROUP_COLOR[score.group]} transition-all`}
               >
-                <span className="text-lg font-extrabold tracking-tight text-[#566e63] mb-2 truncate max-w-full">
+                <span className="text-[11px] sm:text-xs md:text-sm font-extrabold tracking-tighter text-[#566e63] mb-2 text-center w-full truncate">
                   {score.subject}
                 </span>
                 <div className="flex items-center gap-1.5 mb-2">
@@ -391,8 +391,8 @@ function ResultContent() {
                 </div>
               </div>
             ))}
-            <div className={`flex flex-col items-center justify-center p-3 rounded-2xl border ${GROUP_COLOR[result.overallGroup]} transition-all bg-[#566e63]/5`}>
-              <span className="text-lg font-extrabold tracking-tight text-[#566e63] mb-2 truncate max-w-full">
+            <div className={`flex flex-col items-center justify-center p-2 md:p-3 rounded-2xl border ${GROUP_COLOR[result.overallGroup]} transition-all bg-[#566e63]/5`}>
+              <span className="text-[11px] sm:text-xs md:text-sm font-extrabold tracking-tighter text-[#566e63] mb-2 text-center w-full truncate">
                 {lang === 'ko' ? '종합 지수' : 'TOTAL'}
               </span>
               <div className="flex items-center gap-1.5 mb-2">
@@ -497,24 +497,8 @@ function ResultContent() {
            <div className="flex-1">
              <h3 className="text-2xl font-extrabold mb-8 text-[#222] tracking-tight border-b pb-4 border-gray-200">{t.statusSummary}</h3>
              
-             <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center mb-8">
-               <div className={`p-5 rounded-2xl border flex-1 w-full flex items-center justify-between ${GROUP_COLOR[result.overallGroup]}`}>
-                 <div>
-                   <span className="text-[10px] font-black uppercase tracking-widest opacity-70 block mb-1">{t.compIndex}</span>
-                   <div className="text-base font-extrabold tracking-tight">{t.overallTscore}</div>
-                 </div>
-                 <div className="text-right">
-                   <div className="flex items-baseline gap-1 justify-end">
-                     <span className="text-3xl font-black">{Math.round(result.overallTScore)}</span>
-                     <span className="text-xs font-black opacity-70">T-score</span>
-                   </div>
-                   <div className="text-[11px] font-black uppercase mt-1 opacity-90">
-                     {overallGroupLabel}
-                   </div>
-                 </div>
-               </div>
-               
-               <Link href={`/report?id=${resultId}`} className="shrink-0 bg-white border border-gray-200 text-[#4a5c53] font-bold py-4 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-gray-50 transition-colors shadow-sm group">
+             <div className="flex justify-end mb-8">
+               <Link href={`/report?id=${resultId}`} className="shrink-0 bg-white border border-gray-200 text-[#4a5c53] font-bold py-3 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-gray-50 transition-colors shadow-sm group">
                   <BrainCircuit size={18} className="group-hover:text-[#566e63]" />
                   {t.deepReportBtn}
                   <ArrowRight size={16} className="text-gray-400 group-hover:translate-x-1 transition-transform" />
