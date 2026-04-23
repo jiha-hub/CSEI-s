@@ -16,18 +16,18 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  if (!isMounted) return <div className="h-20" />;
+  if (!isMounted) return <div className="h-16" />;
 
   return (
     <header 
-      className={`fixed top-0 w-full z-[100] transition-all duration-300 px-6 md:px-10 py-4 md:py-6 ${
+      className={`fixed top-0 w-full z-[100] transition-all duration-300 px-6 md:px-10 py-3 md:py-4 ${
         isScrolled ? 'bg-white/80 backdrop-blur-lg shadow-sm font-medium' : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="z-[110]">
-          {/* 로고 크기를 키우고, 검정 배경을 제거(반전 후 흰 배경 투명화) */}
-          <img src="/emindlogo.jpg" alt="Emind" className="h-12 md:h-16 w-auto invert mix-blend-multiply" />
+          {/* 로고 크기 축소 및 검정 배경 제거 */}
+          <img src="/emindlogo.jpg" alt="Emind" className="h-8 md:h-10 w-auto invert mix-blend-multiply" />
         </Link>
       </div>
     </header>
