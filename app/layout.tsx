@@ -4,8 +4,8 @@ import Navbar from "./components/Navbar";
 import ResumeBanner from "./components/ResumeBanner";
 
 export const metadata: Metadata = {
-  title: "MoodB | 스마트 7가지 감정 정서 진단 서비스",
-  description: "28문항 핵심 감정 척도 분석와 명상 알고리즘을 통한 데이터 기반 마음 건강 파트너",
+  title: "Emind | 스마트 7가지 감정 정서 진단 서비스",
+  description: "28문항 핵심 감정 척도 분석을 통한 데이터 기반 마음 건강 파트너",
 };
 
 export const viewport = {
