@@ -1,0 +1,158 @@
+﻿import { NextResponse } from 'next/server'
+import { PineconeStore } from '@langchain/pinecone'
+import { PineconeEmbeddings } from '@langchain/pinecone'
+import { ChatOpenAI } from '@langchain/openai'
+import { PromptTemplate } from '@langchain/core/prompts'
+import { StringOutputParser } from '@langchain/core/output_parsers'
+import { getPineconeClient, PINECONE_INDEX_NAME } from '@/utils/pinecone_client'
+
+// thinking_trap ?쒓뎅??蹂??留?const TRAP_KO: Record<string, string> = {
+  'emotional reasoning': '媛먯젙??異붾줎',
+  'overgeneralizing': '怨쇱엵 ?쇰컲??,
+  'catastrophizing': '?뚭뎅??,
+  'black and white thinking': '?묐갚 ?쇰━',
+  'mind reading': '?낆떖??(留덉쓬 ?쎄린)',
+  'fortune telling': '?먯웳?????ш퀬',
+  'personalizing': '媛쒖씤??,
+  'labeling': '?숈씤李띻린',
+  'disqualifying the positive': '湲띿젙 臾댁떆?섍린',
+  'magnification': '怨쇱옣',
+  'minimization': '異뺤냼',
+  'should statements': '?뱀쐞???ш퀬',
+  'jumping to conclusions': '?ｋ?瑜?寃곕줎',
+  'all or nothing thinking': '?꾨? ?꾨땲硫??꾨Т',
+}
+
+function translateTrap(trap: string): string {
+  const lower = trap.toLowerCase().trim()
+  // 吏곸젒 留ㅽ븨
+  if (TRAP_KO[lower]) return TRAP_KO[lower]
+  // 遺遺?留ㅽ븨
+  for (const [en, ko] of Object.entries(TRAP_KO)) {
+    if (lower.includes(en)) return ko
+  }
+  return trap
+}
+
+export async function POST(req: Request) {
+  try {
+    const { situation, thought } = await req.json()
+
+    if (!situation || !thought) {
+      return NextResponse.json({ error: '?곹솴怨??앷컖??紐⑤몢 ?낅젰?댁＜?몄슂.' }, { status: 400 })
+    }
+
+    const userInput = `?곹솴: ${situation}\n?앷컖: ${thought}`
+
+    // 1. Pinecone ?곌껐 (LangChain PineconeEmbeddings)
+    const pc = getPineconeClient()
+    const pineconeIndex = pc.Index(PINECONE_INDEX_NAME)
+
+    const embeddings = new PineconeEmbeddings({
+      model: 'llama-text-embed-v2',
+      apiKey: process.env.PINECONE_API_KEY!,
+    })
+
+    // 2. ?좎궗??寃?됱쑝濡?愿???щ? 5媛?議고쉶
+    const vectorStore = await PineconeStore.fromExistingIndex(embeddings, {
+      pineconeIndex,
+      namespace: 'main',
+    })
+
+    const results = await vectorStore.similaritySearch(userInput, 5)
+
+    // 寃?됯껐怨쇱뿉??reframe, traps 異붿텧
+    const contextItems = results.map(doc => ({
+      situation_thought: doc.pageContent,
+      reframe: doc.metadata.reframe || '',
+      traps: doc.metadata.traps || '',
+    }))
+
+    const contextText = contextItems
+      .map((item, i) => `?щ? ${i + 1}:\n${item.situation_thought}\n?ш뎄?? ${item.reframe}\n?앷컖???⑥젙: ${item.traps}`)
+      .join('\n\n')
+
+    // 媛??留롮씠 ?깆옣??trap 異붿텧 (?⑥닚 鍮덈룄 湲곕컲)
+    const trapFreq: Record<string, number> = {}
+    for (const item of contextItems) {
+      const traps = item.traps.split(',').map((t: string) => t.trim().toLowerCase()).filter(Boolean)
+      for (const t of traps) {
+        trapFreq[t] = (trapFreq[t] || 0) + 1
+      }
+    }
+    const topTrap = Object.entries(trapFreq).sort((a, b) => b[1] - a[1])[0]?.[0] || ''
+    const thinkingTrap = translateTrap(topTrap)
+
+    // 3. LangChain + OpenAI濡?3媛吏 reframe ?앹꽦
+    const llm = new ChatOpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+      modelName: 'gpt-4o-mini',
+      temperature: 0.8,
+    })
+
+    const promptTemplate = PromptTemplate.fromTemplate(`
+?뱀떊? ?몄??됰룞移섎즺(CBT) ?꾨Ц ?곷떞?ъ엯?덈떎.
+?ъ슜?먯쓽 ?곹솴怨??앷컖??遺꾩꽍?섍퀬, ?꾨옒 李멸퀬 ?щ?瑜??쒖슜?섏뿬 3媛吏 ?쒕줈 ?ㅻⅨ 愿?먯쑝濡??몄?瑜??ш뎄?깊빐二쇱꽭??
+
+[李멸퀬 ?щ?]
+{context}
+
+[?ъ슜???낅젰]
+?곹솴: {situation}
+?앷컖: {thought}
+
+?꾨옒 JSON ?뺤떇?쇰줈留??묐떟?섏꽭?? ?ㅻⅨ ?띿뒪?몃굹 留덊겕?ㅼ슫 ?놁씠 JSON留?異쒕젰?섏꽭??
+{{
+  "reframes": [
+    {{
+      "icon": "perspective",
+      "title": "?깆옣??愿??,
+      "text": "泥?踰덉㎏ ?ш뎄??臾몄옣 (?깆옣怨?諛쒖쟾??珥덉젏)"
+    }},
+    {{
+      "icon": "balance", 
+      "title": "洹좏삎??愿??,
+      "text": "??踰덉㎏ ?ш뎄??臾몄옣 (洹좏삎 ?≫엺 ?쒓컖)"
+    }},
+    {{
+      "icon": "action",
+      "title": "?됰룞??愿??,
+      "text": "??踰덉㎏ ?ш뎄??臾몄옣 (?ㅼ쿇怨??됰룞??珥덉젏)"
+    }}
+  ]
+}}
+`)
+
+    const chain = promptTemplate.pipe(llm).pipe(new StringOutputParser())
+    const rawResponse = await chain.invoke({
+      context: contextText,
+      situation,
+      thought,
+    })
+
+    // JSON ?뚯떛
+    let parsed: { reframes: { icon: string; title: string; text: string }[] }
+    try {
+      const jsonMatch = rawResponse.match(/\{[\s\S]*\}/)
+      parsed = JSON.parse(jsonMatch ? jsonMatch[0] : rawResponse)
+    } catch {
+      // JSON ?뚯떛 ?ㅽ뙣 ???대갚
+      parsed = {
+        reframes: [
+          { icon: 'perspective', title: '?깆옣??愿??, text: rawResponse.slice(0, 200) },
+          { icon: 'balance', title: '洹좏삎??愿??, text: '???곹솴???ㅼ뼇???쒓컖?쇰줈 諛붾씪蹂????덉뒿?덈떎.' },
+          { icon: 'action', title: '?됰룞??愿??, text: '援ъ껜?곸씤 ?됰룞?쇰줈 蹂?붾? 留뚮뱾???섍컝 ???덉뒿?덈떎.' },
+        ],
+      }
+    }
+
+    return NextResponse.json({
+      success: true,
+      thinkingTrap,
+      reframes: parsed.reframes,
+    })
+  } catch (error: any) {
+    console.error('Reframe API ?ㅻ쪟:', error)
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+  }
+}

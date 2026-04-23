@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Service - 채팅</title>
+  <meta name="description" content="안전한 공간, 나를 돌아보는 고요한 시간 - 파이널 서비스 채팅">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-brand">Final Service</div>
+      <div class="nav-links">
+        <a href="#">치유</a>
+        <a href="#">나의 상황</a>
+        <a href="#" class="active">채팅</a>
+      </div>
+      <div class="nav-actions">
+        <a href="#" class="login-btn">로그인</a>
+        <a href="#" class="signup-btn">회원가입</a>
+      </div>
+      <!-- Mobile menu toggle -->
+      <button class="mobile-menu-btn" aria-label="메뉴 열기">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="chat-header">
+        <div class="header-left">
+          <span class="eyebrow">SAFE SPACE</span>
+          <h1 class="title">나를 돌아보는 고요한 시간<span class="serif-italic">.</span></h1>
+        </div>
+        <div class="header-right">
+          <div class="guide-profile">
+            <div class="guide-avatar">
+              <!-- Placeholder for avatar -->
+              <img src="https://i.pravatar.cc/100?img=47" alt="에코 가이드" />
+            </div>
+            <div class="guide-info">
+              <span class="guide-name">공감 가이드</span>
+              <span class="guide-status"><span class="status-dot"></span>경청하는 중</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="chat-wrapper">
+        <div class="chat-messages" id="chatMessages">
+          <!-- Bot Message -->
+          <div class="message-row bot-message">
+            <div class="avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#5A6A62" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <div class="bubble bot-bubble">
+              안녕하세요. 지금 기분이 어떠신가요? 서두르지 않고 천천히 말씀하셔도 좋습니다.
+            </div>
+          </div>
+
+          <!-- User Message -->
+          <div class="message-row user-message">
+            <div class="bubble user-bubble">
+              최근에 모든 일의 속도에 조금 압도당하는 기분이에요. 그저 조금의 평온함을 찾고 싶어요.
+            </div>
+            <div class="avatar">
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Bot Message -->
+          <div class="message-row bot-message">
+            <div class="avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#5A6A62" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <div class="bubble bot-bubble">
+              충분히 이해합니다. 때로는 세상이 너무 시끄럽게 느껴질 수 있죠. 우리 함께 심호흡을 해볼까요. 준비가 되시면 오늘 하루 당신에게 평온함을 준 작은 일 한 가지를 말해주세요.
+            </div>
+          </div>
+        </div>
+
+        <!-- Suggestion Chips -->
+        <div class="chat-suggestions">
+          <button class="chip">아침에 커피 마시기</button>
+          <button class="chip">공원 짧게 산책하기</button>
+          <button class="chip">책 몇 페이지 읽기</button>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+          <div class="breathing-circle-container">
+            <div class="breathing-circle pulse-anim"></div>
+          </div>
+          <div class="input-container">
+            <input type="text" id="chatInput" placeholder="마음속 이야기를 적어주세요..." />
+            <div class="input-actions">
+              <button class="mic-btn" aria-label="음성 입력">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+              </button>
+              <button class="send-btn" id="sendBtn" aria-label="전송">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="19" x2="12" y2="5"></line>
+                  <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="input-footer">
+            <p class="encryption-text">종단간 암호화 및 프라이버시 보호</p>
+            <p class="breathing-text">원에 맞춰 호흡을 조절해보세요</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-left">
+        <h2 class="footer-brand">Final Service</h2>
+        <p class="copyright">© 2024 Final Service. 살아있는 안식처.</p>
+      </div>
+      <div class="footer-right">
+        <a href="#">소개</a>
+        <a href="#">개인정보처리방침</a>
+        <a href="#">문의하기</a>
+        <a href="#">이용약관</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

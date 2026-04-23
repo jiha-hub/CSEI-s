@@ -1,0 +1,87 @@
+﻿import { NextResponse } from 'next/server'
+import { ChatOpenAI } from '@langchain/openai'
+
+// thinking_trap ?쒓뎅??蹂??留?(reframe route? ?숈씪)
+const TRAP_KO: Record<string, string> = {
+  'emotional reasoning': '媛먯젙??異붾줎',
+  'overgeneralizing': '怨쇱엵 ?쇰컲??,
+  'catastrophizing': '?뚭뎅??,
+  'black and white thinking': '?묐갚 ?쇰━',
+  'all-or-nothing thinking': '?묐갚 ?쇰━',
+  'all or nothing thinking': '?묐갚 ?쇰━',
+  'mind reading': '?낆떖??(留덉쓬 ?쎄린)',
+  'fortune telling': '?먯웳?????ш퀬',
+  'personalizing': '媛쒖씤??,
+  'labeling': '?숈씤李띻린',
+  'disqualifying the positive': '湲띿젙 臾댁떆?섍린',
+  'magnification': '怨쇱옣',
+  'minimization': '異뺤냼',
+  'should statements': '?뱀쐞???ш퀬',
+  'jumping to conclusions': '?ｋ?瑜?寃곕줎',
+}
+
+function translateTrap(trap: string): string {
+  const lower = trap.toLowerCase().trim()
+  if (TRAP_KO[lower]) return TRAP_KO[lower]
+  for (const [en, ko] of Object.entries(TRAP_KO)) {
+    if (lower.includes(en)) return ko
+  }
+  // "(?レ옄%)" ?뺤떇 ?쒓굅?섍퀬 諛섑솚
+  return trap.replace(/\s*\(\d+%\)\s*$/, '').trim()
+}
+
+export async function POST(req: Request) {
+  try {
+    const { thought, situation } = await req.json()
+
+    if (!thought) {
+      return NextResponse.json({ message: 'Thought is required' }, { status: 400 })
+    }
+
+    const llm = new ChatOpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+      modelName: 'gpt-4o-mini',
+      temperature: 0,
+      maxTokens: 50,
+    })
+
+    const prompt = `Here are examples of cognitive distortion classification:
+
+Thought: "Everyone will hate me"
+Cognitive Distortion: Mind Reading (85%)
+
+Thought: "I will fail again"
+Cognitive Distortion: Fortune Telling (90%)
+
+Thought: "I am completely worthless"
+Cognitive Distortion: Labeling (80%)
+
+Thought: "If it's not perfect, it's a failure"
+Cognitive Distortion: All-or-Nothing Thinking (75%)
+
+Thought: "The worst will happen"
+Cognitive Distortion: Catastrophizing (88%)
+
+---
+
+Situation: ${situation || ''}
+Thought: ${thought}
+Cognitive Distortion:`
+
+    const response = await llm.invoke([
+      { role: 'system', content: 'You are an expert in identifying cognitive distortions. Respond with only the distortion name and confidence percentage, nothing else.' },
+      { role: 'user', content: prompt },
+    ])
+
+    const raw = typeof response.content === 'string' ? response.content.trim() : ''
+    const thinkingTrap = translateTrap(raw)
+
+    return NextResponse.json({ thinking_trap: thinkingTrap })
+  } catch (error: any) {
+    console.error('Classify API ?ㅻ쪟:', error)
+    return NextResponse.json(
+      { message: error.message || 'Internal Server Error' },
+      { status: 500 }
+    )
+  }
+}

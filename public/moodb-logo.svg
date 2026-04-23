@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <defs>
+    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#566e63"/>
+      <stop offset="100%" stop-color="#7a9e8a"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#bfa588"/>
+      <stop offset="100%" stop-color="#d4b89c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Logo Icon: 감정 파형이 담긴 원형 아이콘 -->
+  <circle cx="36" cy="40" r="30" fill="#566e63" opacity="0.1"/>
+  <circle cx="36" cy="40" r="24" fill="#566e63"/>
+  
+  <!-- 원 안의 데시벨 웨이브 -->
+  <path d="M22 40 Q26 28 30 40 Q34 52 38 40 Q42 28 46 40 Q50 52 50 40" 
+        fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- 'MoodB' 텍스트 -->
+  <text x="76" y="52" font-family="'Inter', 'Pretendard', sans-serif" font-size="38" font-weight="800" letter-spacing="-1.5" fill="#222">
+    Mood<tspan fill="url(#waveGrad)">B</tspan>
+  </text>
+  
+  <!-- 서브 파형 장식 (B 뒤쪽) -->
+  <path d="M255 32 Q260 24 265 32 Q270 40 275 32" 
+        fill="none" stroke="url(#accentGrad)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+</svg>

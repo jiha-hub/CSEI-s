@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  
+  /* MoodB Brand Colors */
+  --color-sage: #566e63;
+  --color-sage-deep: #4a5c53;
+  --color-sage-light: #e8efe9;
+  --color-sand: #bfa588;
+  --color-cream: #f5ebd9;
+  --color-paper: #fffdfa;
+  --color-alert: #e85d5d;
+  --color-calm: #4db4b6;
+  --color-gold: #d4a56a;
+  
+  /* 통일 폰트 */
+  --font-main: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-main);
+  --font-mono: var(--font-main);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-responsive-h1 {
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.1];
+  }
+  .text-responsive-h2 {
+    @apply text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight;
+  }
+  .text-responsive-p {
+    @apply text-base sm:text-lg md:text-xl text-gray-600 font-medium leading-relaxed;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-main);
+}
