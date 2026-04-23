@@ -33,6 +33,10 @@
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
   }
+  header {
+    border: none !important;
+    box-shadow: none;
+  }
 }
 
 @layer utilities {

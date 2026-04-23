@@ -30,14 +30,14 @@ export default function Navbar() {
 
   return (
     <header 
-      className={`fixed top-0 w-full z-[100] transition-all duration-300 px-6 md:px-10 py-3 md:py-4 bg-white ${
+      className={`fixed top-0 w-full z-[100] transition-all duration-300 px-6 md:px-10 py-3 md:py-4 bg-white border-b-0 border-none ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="z-[110]">
-          {/* 로고 원본 그대로 표시 */}
-          <img src="/emindlogo.jpg" alt="Emind" className="h-8 md:h-10 w-auto" />
+          {/* 로고: 검정 배경 제거 효과 적용 */}
+          <img src="/emindlogo.jpg" alt="Emind" className="h-8 md:h-10 w-auto invert mix-blend-multiply" />
         </Link>
       </div>
     </header>
