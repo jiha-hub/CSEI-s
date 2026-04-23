@@ -494,16 +494,16 @@ function ResultContent() {
 
         {/* Report Component below the charts */}
         <div className="mb-16 bg-[#f9faf9] p-8 md:p-12 rounded-[32px] border border-[#e8e0d5] flex flex-col lg:flex-row gap-8 justify-between items-start animate-in fade-in slide-in-from-bottom-8 duration-500 delay-200">
-           <div className="flex-1">
-             <h3 className="text-2xl font-extrabold mb-8 text-[#222] tracking-tight border-b pb-4 border-gray-200">{t.statusSummary}</h3>
-             
-             <div className="flex justify-end mb-8">
-               <Link href={`/report?id=${resultId}`} className="shrink-0 bg-white border border-gray-200 text-[#4a5c53] font-bold py-3 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-gray-50 transition-colors shadow-sm group">
-                  <BrainCircuit size={18} className="group-hover:text-[#566e63]" />
-                  {t.deepReportBtn}
-                  <ArrowRight size={16} className="text-gray-400 group-hover:translate-x-1 transition-transform" />
-               </Link>
-             </div>
+             <div className="flex-1">
+              {/* 제목 + 심층 리포트 버튼을 같은 행에 배치 */}
+              <div className="flex items-center justify-between mb-6 border-b pb-4 border-gray-200">
+                <h3 className="text-2xl font-extrabold text-[#222] tracking-tight">{t.statusSummary}</h3>
+                <Link href={`/report?id=${resultId}`} className="shrink-0 bg-white border border-gray-200 text-[#4a5c53] font-bold py-3 px-5 rounded-2xl inline-flex items-center gap-2 hover:bg-gray-50 transition-colors shadow-sm group text-sm">
+                   <BrainCircuit size={16} className="group-hover:text-[#566e63]" />
+                   {t.deepReportBtn}
+                   <ArrowRight size={14} className="text-gray-400 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
 
              <p className="text-[#555] font-medium leading-relaxed mb-8 text-[15px] bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                {getOverallSummary()}

@@ -30,9 +30,9 @@ export default function Navbar() {
 
   return (
     <header 
-      className={`fixed top-0 w-full z-[100] transition-all duration-300 px-6 md:px-10 py-3 md:py-4 bg-white font-medium ${
-        isScrolled ? 'shadow-sm' : ''
-      } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
+      className={`fixed top-0 w-full z-[100] transition-all duration-300 px-6 md:px-10 py-3 md:py-4 bg-white ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="z-[110]">
