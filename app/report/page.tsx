@@ -47,7 +47,7 @@ const TEXTS = {
     riskTag: '위험', cautionTag: '주의', normalTag: '정상',
     medicalAlert: '유의 사항 및 신체 증상',
     sectionC: '권장 가이드라인',
-    guideText: '"감정은 흐름입니다. 하나의 감정에 매몰되는 것이 문제 감정입니다. 다른 감정으로 대체할 수 있도록, 자연스러운 흐름과 상호견제에 의해서 나의 감정은 흘러갑니다. 현재의 핵심 감정을 다른 감정으로 옮기는 방법이 오지상승요법입니다. 나의 감정 상태에 맞는 오지상승요법을 MoodB 명상으로 만나보세요."',
+    guideText: '"감정은 흐름입니다. 하나의 감정에 매몰되는 것이 문제 감정입니다. 다른 감정으로 대체할 수 있도록, 자연스러운 흐름과 상호견제에 의해서 나의 감정은 흘러갑니다. 현재의 핵심 감정을 다른 감정으로 옮기는 방법이 오지상승요법입니다. 나의 감정 상태에 맞는 오지상승요법을 명상으로 만나보세요."',
     btnMeditate: '지금 바로 치유 명상 시작하기',
     footerText: '— FINAL SERVICE CONFIDENTIAL REPORT —'
   },
@@ -81,7 +81,7 @@ const TEXTS = {
     riskTag: 'Risk', cautionTag: 'Caution', normalTag: 'Normal',
     medicalAlert: 'Precautions & Physical Symptoms',
     sectionC: 'Recommended Guidelines',
-    guideText: '"Emotion is a flow. Getting bogged down in a single emotion is what creates problematic feelings. By allowing emotions to flow naturally and maintain mutual checks and balances, we can transition to a healthier state. Experience MoodB meditation, tailored precisely to your current emotional state, to gently guide you towards serenity."',
+    guideText: '"Emotion is a flow. Getting bogged down in a single emotion is what creates problematic feelings. By allowing emotions to flow naturally and maintain mutual checks and balances, we can transition to a healthier state. Experience meditation, tailored precisely to your current emotional state, to gently guide you towards serenity."',
     btnMeditate: 'Start Healing Meditation Now',
     footerText: '— FINAL SERVICE CONFIDENTIAL REPORT —'
   }
