@@ -299,7 +299,7 @@ function QuestionnaireContent() {
                   <span className="text-xs font-black text-[#566e63] tracking-widest">{t.progressStr}: {Math.round(progress)}%</span>
                   <span className="text-sm font-black text-gray-400">{currentStep + 1} / {QUESTIONS[lang].length}</span>
                </div>
-               <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+               <div className="h-4 w-full bg-gray-100 rounded-full overflow-hidden">
                   <div className="h-full bg-[#566e63] transition-all duration-500 ease-out" style={{ width: `${progress}%` }}></div>
                </div>
             </div>
