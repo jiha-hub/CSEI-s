@@ -225,25 +225,25 @@ function QuestionnaireContent() {
         {currentStep === -2 ? (
           <div className="text-center animate-in fade-in zoom-in duration-700">
             <div className="mb-8">
-               <h1 className="text-4xl sm:text-6xl font-black text-[#566e63] tracking-tighter leading-tight mb-6">
+               <h1 className="text-3xl sm:text-5xl font-black text-[#566e63] tracking-tighter leading-tight mb-4">
                  {t.titleTop}<br/>{t.titleMid}<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#566e63] to-[#bfa588]">{t.titleBot}</span>
                </h1>
-               <p className="text-[#8c7b68] text-lg font-medium mb-12" style={{ whiteSpace: 'pre-wrap' }}>
+               <p className="text-[#8c7b68] text-base font-medium mb-8" style={{ whiteSpace: 'pre-wrap' }}>
                  {t.desc}
                </p>
             </div>
             
-            <div className="bg-white rounded-[40px] p-8 md:p-12 shadow-xl border border-[#e8e0d5] mb-10">
-               <div className="w-20 h-20 bg-[#566e63] rounded-[30px] flex items-center justify-center mx-auto mb-8 shadow-lg shadow-[#566e63]/20">
-                  <ClipboardList size={36} className="text-white" />
+            <div className="bg-white rounded-[40px] p-6 md:p-10 shadow-xl border border-[#e8e0d5] mb-6">
+               <div className="w-16 h-16 bg-[#566e63] rounded-[24px] flex items-center justify-center mx-auto mb-6 shadow-lg shadow-[#566e63]/20">
+                  <ClipboardList size={32} className="text-white" />
                </div>
-               <h2 className="text-2xl font-black text-[#222] mb-4">{t.startAssessment}</h2>
-               <p className="text-gray-500 font-medium mb-10 max-w-sm mx-auto" style={{ whiteSpace: 'pre-wrap' }}>
+               <h2 className="text-xl font-black text-[#222] mb-3">{t.startAssessment}</h2>
+               <p className="text-gray-500 text-sm font-medium mb-8 max-w-sm mx-auto" style={{ whiteSpace: 'pre-wrap' }}>
                  {t.desc2}
                </p>
                <button 
                  onClick={() => handleNext()}
-                 className="w-full max-w-[320px] bg-[#566e63] text-white py-5 rounded-[24px] font-black text-lg shadow-xl shadow-[#566e63]/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto"
+                 className="w-full max-w-[320px] bg-[#566e63] text-white py-4 rounded-[24px] font-black text-base shadow-xl shadow-[#566e63]/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto"
                >
                  {t.btnStart} <ArrowRight size={20} />
                </button>
@@ -260,21 +260,21 @@ function QuestionnaireContent() {
           </div>
         ) : currentStep === -1 ? (
           <div className="max-w-md mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500 text-center">
-            <h2 className="text-3xl font-black text-[#222] mb-2">{t.basicTitle}</h2>
-            <p className="text-gray-500 mb-10 font-medium">{t.basicDesc}</p>
+            <h2 className="text-2xl md:text-3xl font-black text-[#222] mb-2">{t.basicTitle}</h2>
+            <p className="text-gray-500 mb-6 font-medium text-sm md:text-base">{t.basicDesc}</p>
             
-            <div className="bg-white p-8 rounded-[40px] shadow-sm border border-[#e8e0d5] text-left">
-              <div className="mb-8">
-                <label className="text-[10px] font-black text-[#bfa588] tracking-widest mb-4 block">{t.genderLabel}</label>
-                <div className="flex gap-4">
+            <div className="bg-white p-6 md:p-8 rounded-[40px] shadow-sm border border-[#e8e0d5] text-left">
+              <div className="mb-6">
+                <label className="text-[10px] font-black text-[#bfa588] tracking-widest mb-3 block">{t.genderLabel}</label>
+                <div className="flex gap-3">
                   {([['male', t.genderMale], ['female', t.genderFemale]] as const).map(([val, label]) => (
-                    <button key={val} onClick={() => setGender(val as Gender)} className={`flex-1 py-4 rounded-3xl font-black transition-all ${gender === val ? 'bg-[#566e63] text-white shadow-lg' : 'bg-[#faf8f5] text-gray-400 border border-gray-100 hover:bg-[#f5f0e8]'}`}>{label}</button>
+                    <button key={val} onClick={() => setGender(val as Gender)} className={`flex-1 py-3 md:py-4 rounded-3xl font-black transition-all ${gender === val ? 'bg-[#566e63] text-white shadow-lg' : 'bg-[#faf8f5] text-gray-400 border border-gray-100 hover:bg-[#f5f0e8]'}`}>{label}</button>
                   ))}
                 </div>
               </div>
-              <div className="mb-10">
-                <label className="text-[10px] font-black text-[#bfa588] tracking-widest mb-4 block">{t.ageGroupLabel}</label>
-                <div className="grid grid-cols-2 gap-4">
+              <div className="mb-8">
+                <label className="text-[10px] font-black text-[#bfa588] tracking-widest mb-3 block">{t.ageGroupLabel}</label>
+                <div className="grid grid-cols-2 gap-3">
                   {(['20s', '30s', '40s', '50s_plus'] as const).map(val => {
                     let displayVal = val;
                     if (val === '50s_plus') {
@@ -283,19 +283,19 @@ function QuestionnaireContent() {
                       displayVal = val.replace('s', '대');
                     }
                     return (
-                      <button key={val} onClick={() => setAgeGroup(val as AgeGroup)} className={`py-4 rounded-3xl font-black transition-all ${ageGroup === val ? 'bg-[#566e63] text-white shadow-lg' : 'bg-[#faf8f5] text-gray-400 border border-gray-100 hover:bg-[#f5f0e8]'}`}>{displayVal}</button>
+                      <button key={val} onClick={() => setAgeGroup(val as AgeGroup)} className={`py-3 md:py-4 rounded-3xl font-black transition-all ${ageGroup === val ? 'bg-[#566e63] text-white shadow-lg' : 'bg-[#faf8f5] text-gray-400 border border-gray-100 hover:bg-[#f5f0e8]'}`}>{displayVal}</button>
                     )
                   })}
                 </div>
               </div>
-              <button onClick={() => handleNext()} className="w-full py-5 bg-[#566e63] text-white rounded-3xl font-black text-lg shadow-lg hover:bg-[#4a5c53]">{t.btnInnerDiag}</button>
+              <button onClick={() => handleNext()} className="w-full py-4 bg-[#566e63] text-white rounded-3xl font-black text-base md:text-lg shadow-lg hover:bg-[#4a5c53]">{t.btnInnerDiag}</button>
             </div>
-            <button onClick={() => setCurrentStep(-2)} className="mt-8 text-gray-400 font-bold text-sm flex items-center justify-center gap-2 mx-auto hover:text-gray-600"><ChevronLeft size={16}/> {t.btnPrev}</button>
+            <button onClick={() => setCurrentStep(-2)} className="mt-6 text-gray-400 font-bold text-sm flex items-center justify-center gap-2 mx-auto hover:text-gray-600"><ChevronLeft size={16}/> {t.btnPrev}</button>
           </div>
         ) : (
           <div className="w-full max-w-2xl mx-auto">
-            <div className="mb-12">
-               <div className="flex justify-between items-end mb-4">
+            <div className="mb-8 md:mb-10">
+               <div className="flex justify-between items-end mb-3">
                   <span className="text-xs font-black text-[#566e63] tracking-widest">{t.progressStr}: {Math.round(progress)}%</span>
                   <span className="text-sm font-black text-gray-400">{currentStep + 1} / {QUESTIONS[lang].length}</span>
                </div>
@@ -305,8 +305,8 @@ function QuestionnaireContent() {
             </div>
 
             <div className="text-center animate-in fade-in slide-in-from-right-4 duration-500">
-               <h3 className="text-2xl md:text-3xl font-bold text-[#222] mb-16 leading-tight break-keep">{QUESTIONS[lang][currentStep]}</h3>
-               <div className="grid gap-4 max-w-sm mx-auto">
+               <h3 className="text-xl md:text-3xl font-bold text-[#222] mb-8 md:mb-12 leading-tight break-keep">{QUESTIONS[lang][currentStep]}</h3>
+               <div className="grid gap-3 max-w-sm mx-auto">
                  {[5, 4, 3, 2, 1].map((val) => {
                    let scaleText = ''
                    if (val === 5) scaleText = t.scale5;
@@ -318,7 +318,7 @@ function QuestionnaireContent() {
                      <button 
                        key={val} 
                        onClick={() => handleAnswerChange(val)}
-                       className={`w-full py-5 rounded-[24px] font-black text-lg transition-all ${answers[currentStep] === val ? 'bg-[#566e63] text-white shadow-xl scale-105' : 'bg-white border border-gray-100 text-gray-500 hover:border-[#566e63] hover:text-[#566e63]'}`}
+                       className={`w-full py-3 md:py-4 rounded-[20px] font-black text-base md:text-lg transition-all ${answers[currentStep] === val ? 'bg-[#566e63] text-white shadow-xl scale-105' : 'bg-white border border-gray-100 text-gray-500 hover:border-[#566e63] hover:text-[#566e63]'}`}
                      >
                        {scaleText}
                      </button>
@@ -326,7 +326,7 @@ function QuestionnaireContent() {
                  })}
                </div>
             </div>
-            <button onClick={handlePrev} className="mt-16 text-gray-400 font-bold text-sm flex items-center justify-center gap-2 mx-auto hover:text-gray-600"><ChevronLeft size={16}/> {t.btnPrevQ}</button>
+            <button onClick={handlePrev} className="mt-10 text-gray-400 font-bold text-sm flex items-center justify-center gap-2 mx-auto hover:text-gray-600"><ChevronLeft size={16}/> {t.btnPrevQ}</button>
           </div>
         )}
       </main>

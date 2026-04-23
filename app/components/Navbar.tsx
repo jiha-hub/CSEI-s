@@ -26,7 +26,8 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="z-[110]">
-          <img src="/emindlogo.jpg" alt="Emind" className="h-8 md:h-10 w-auto rounded-md" />
+          {/* 로고 크기를 키우고, 검정 배경을 제거(반전 후 흰 배경 투명화) */}
+          <img src="/emindlogo.jpg" alt="Emind" className="h-12 md:h-16 w-auto invert mix-blend-multiply" />
         </Link>
       </div>
     </header>
